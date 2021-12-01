@@ -1,0 +1,76 @@
+--DB1 beadandó, táblák készítése
+--Készítette: Horváth Ákos
+
+--Számlatulajdonos
+create table Számlatulajdonos( 
+sztkod int NOT NULL, 
+név varchar(50) NOT NULL, 
+szül_dátum date, 
+telefonszám varchar(15), 
+irsz char(4), 
+város varchar(30), 
+utca varchar(50), 
+házszám varchar(10), 
+primary key(sztkod) 
+);
+
+--Bankkártya
+create table Bankkártya( 
+bkkod int NOT NULL, 
+kártyaszám varchar(30) NOT NULL, 
+lejárati_dátum date NOT NULL, 
+cvv char(3) NOT NULL, 
+primary key(bkkod)
+);
+
+--Bankszámla
+create table Bankszámla( 
+bszkod int NOT NULL, 
+számlaszám varchar(50) NOT NULL, 
+egyenleg float NOT NULL, 
+kártya int, 
+primary key(bszkod), 
+foreign key(kártya) references Bankkártya(bkkod) 
+);
+
+--Tranzakció
+create table Tranzakció( 
+tkod int NOT NULL, 
+dátum date, 
+küldő_sz int, 
+fogadó_sz int, 
+primary key(tkod), 
+foreign key(küldő_sz) references Bankszámla(bszkod), 
+foreign key (fogadó_sz) references Bankszámla(bszkod) 
+);
+
+--Bankfiók
+create table Bankfiók( 
+bfkod int NOT NULL, 
+irsz char(4), 
+város varchar(30), 
+utca varchar(50), 
+házszám varchar(10), 
+primary key(bfkod) 
+);
+
+--Munkavállaló
+create table Munkavállaló( 
+mvkod int NOT NULL, 
+név varchar(50) NOT NULL, 
+telefonszám varchar(12), 
+pozíció varchar(50), 
+fizetés float, 
+bankfiók int, 
+primary key(mvkod), 
+foreign key(bankfiók) references Bankfiók(bfkod)
+);
+
+--Tulajdonos
+create table Tulajdonos( 
+sztulajdonos int NOT NULL, 
+számla int NOT NULL, 
+típus varchar(20)
+);
+alter table Tulajdonos add constraint szamla_fk foreign key(számla) references Bankszámla(bszkod);
+alter table Tulajdonos add constraint sztulaj_fk foreign key(sztulajdonos) references Számlatulajdonos(sztkod);

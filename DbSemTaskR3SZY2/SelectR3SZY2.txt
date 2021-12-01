@@ -1,0 +1,11 @@
+select város,count(bszkod) from Bankszámla inner join Tulajdonos on Tulajdonos.számla=Bankszámla.bszkod inner join Számlatulajdonos on Számlatulajdonos.sztkod=Tulajdonos.sztulajdonos group by város;
+select count(*) from Bankszámla where egyenleg>200000;
+select * from Tranzakció where dátum < curdate() - interval 1 year;
+select név,fizetés from Munkavállaló inner join Bankfiók on Bankfiók.bfkod=Munkavállaló.bankfiók where város="Budapest";
+select * from Bankkártya where lejárati_dátum < curdate() + interval 1 year;
+select sum(egyenleg) from Bankszámla;
+select összeg,dátum from Tranzakció inner join Bankszámla on Bankszámla.bszkod=küldő_sz inner join Tulajdonos on Tulajdonos.számla=Bankszámla.bszkod inner join Számlatulajdonos on Számlatulajdonos.sztkod=Tulajdonos.sztulajdonos where Számlatulajdonos.név="Kiss István";
+select város, avg(egyenleg) from Bankszámla inner join Tulajdonos on Tulajdonos.számla=Bankszámla.bszkod inner join Számlatulajdonos on Számlatulajdonos.sztkod=Tulajdonos.sztulajdonos group by város;
+select pozíció,avg(fizetés) from Munkavállaló group by pozíció;
+select avg(összeg) from Tranzakció where year(dátum)=2021;
+select count(*) from Számlatulajdonos where timestampdiff(year, szül_dátum, curdate()) > 30;
