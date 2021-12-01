@@ -1,0 +1,7 @@
+Bankszámla[bszkod, számlaszám, egyenleg, kártya]
+Számlatulajdonos[sztkod, név, szül_dátum, telefonszám, irsz, város, utca, házszám]
+Tulajdonos[sztulajdonos, számla, típus]
+Tranzakció[tkod, összeg, dátum, küldő_sz, fogadó_sz]
+Bankkártya[bkkod, kártyaszám, lejárati_dátum, cvv]
+Bankfiók[bfkod, irsz, város, utca, házszám]
+Munkavállaló[mvkod, név, pozíció, fizetés, bankfiók]
